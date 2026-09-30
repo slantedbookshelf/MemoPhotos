@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { PhMagnifyingGlass as MagnifyingGlass, PhFunnel as Funnel, PhArrowRight as ArrowRight, PhCamera as Camera, PhSparkle as Sparkle } from '@phosphor-icons/vue'
 import { useLibraryStore } from '../stores/library'
+import HeroCarousel from '../components/HeroCarousel.vue'
 import PhotoCard from '../components/PhotoCard.vue'
 
 const store = useLibraryStore()
@@ -26,21 +27,23 @@ const rest = computed(() => filtered.value.slice(1))
 </script>
 
 <template>
-  <div class="page gallery-page">
-    <section class="gallery-intro">
-      <div class="intro-copy reveal">
-        <p class="eyebrow">你的摄影成长档案</p>
-        <h1>每一次快门，<br />都有后来。</h1>
-        <p class="intro-text">记录照片背后的判断与故事，在回看中看见自己的变化。</p>
-      </div>
-      <div class="intro-summary reveal delay-1">
-        <div><strong>{{ store.entries.length }}</strong><span>篇日记</span></div>
-        <div><strong>{{ store.reviewedCount }}</strong><span>次复盘</span></div>
-        <div><strong>{{ store.favoriteCount }}</strong><span>个待拍灵感</span></div>
-      </div>
-    </section>
+  <div class="gallery-page">
+    <HeroCarousel :entries="store.entries" />
 
-    <section class="filter-bar" aria-label="筛选作品">
+    <div class="page gallery-content">
+      <section class="gallery-overview" aria-label="摄影档案概览">
+        <div>
+          <p class="eyebrow">你的摄影成长档案</p>
+          <h2>回看每一次按下快门的理由。</h2>
+        </div>
+        <div class="intro-summary">
+          <div><strong>{{ store.entries.length }}</strong><span>篇日记</span></div>
+          <div><strong>{{ store.reviewedCount }}</strong><span>次复盘</span></div>
+          <div><strong>{{ store.favoriteCount }}</strong><span>个待拍灵感</span></div>
+        </div>
+      </section>
+
+      <section class="filter-bar" aria-label="筛选作品">
       <label class="search-field">
         <MagnifyingGlass :size="19" />
         <input v-model="query" type="search" placeholder="搜索地点、标签或作品" />
@@ -54,13 +57,13 @@ const rest = computed(() => filtered.value.slice(1))
           <option>全部</option><option>已点评</option><option>未点评</option>
         </select>
       </div>
-    </section>
+      </section>
 
-    <div v-if="store.loading" class="gallery-grid loading-grid" aria-label="正在读取照片">
-      <div v-for="n in 4" :key="n" class="skeleton"></div>
-    </div>
+      <div v-if="store.loading" class="gallery-grid loading-grid" aria-label="正在读取照片">
+        <div v-for="n in 4" :key="n" class="skeleton"></div>
+      </div>
 
-    <section v-else-if="featured" class="archive-section">
+      <section v-else-if="featured" class="archive-section">
       <div class="section-title-row">
         <h2>{{ query || theme !== '全部' || reviewState !== '全部' ? '筛选结果' : '最近记录' }}</h2>
         <span>{{ filtered.length }} 组作品</span>
@@ -69,22 +72,23 @@ const rest = computed(() => filtered.value.slice(1))
         <PhotoCard :entry="featured" featured />
         <PhotoCard v-for="entry in rest" :key="entry.id" :entry="entry" />
       </div>
-    </section>
+      </section>
 
-    <section v-else class="empty-state">
+      <section v-else class="empty-state">
       <Camera :size="42" weight="thin" />
       <h2>这里还没有符合条件的照片</h2>
       <p>换个筛选条件，或者写下第一篇摄影日记。</p>
       <RouterLink class="button button-primary" to="/entry/new">写摄影日记<ArrowRight :size="17" /></RouterLink>
-    </section>
+      </section>
 
-    <section class="inspiration-callout reveal">
+      <section class="inspiration-callout reveal">
       <div class="callout-icon"><Sparkle :size="28" /></div>
       <div>
         <h2>下一次，拍什么？</h2>
         <p>从一个具体任务开始，把犹豫变成出门的理由。</p>
       </div>
       <RouterLink class="text-link" to="/inspire">抽一张灵感<ArrowRight :size="18" /></RouterLink>
-    </section>
+      </section>
+    </div>
   </div>
 </template>

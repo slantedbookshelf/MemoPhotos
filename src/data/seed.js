@@ -1,8 +1,10 @@
+const photoUrl = (filename) => `${import.meta.env.BASE_URL}photos/${filename}`
+
 export const sampleEntries = [
   {
     id: 'entry-shanghai-rain',
     title: '雨停之后',
-    images: ['/photos/shanghai-rain.webp'],
+    images: [photoUrl('shanghai-rain.webp')],
     takenAt: '2026-09-18T07:24',
     location: { name: '上海 · 外滩', coords: null },
     equipment: { camera: 'Fujifilm X-T5', lens: 'XF 23mm F2', focalLength: '23mm', aperture: 'f/5.6', shutterSpeed: '1/250s', iso: '320' },
@@ -16,7 +18,7 @@ export const sampleEntries = [
   {
     id: 'entry-sichuan-ridge',
     title: '群山醒来以前',
-    images: ['/photos/sichuan-ridge.webp'],
+    images: [photoUrl('sichuan-ridge.webp')],
     takenAt: '2026-08-29T06:18',
     location: { name: '四川 · 四姑娘山', coords: null },
     equipment: { camera: 'Sony A7R V', lens: 'FE 24-70mm F2.8 GM II', focalLength: '46mm', aperture: 'f/8', shutterSpeed: '1/80s', iso: '100' },
@@ -30,7 +32,7 @@ export const sampleEntries = [
   {
     id: 'entry-window-portrait',
     title: '窗边的下午',
-    images: ['/photos/window-portrait.webp'],
+    images: [photoUrl('window-portrait.webp')],
     takenAt: '2026-08-12T16:42',
     location: { name: '杭州 · 家中', coords: null },
     equipment: { camera: 'Nikon Zf', lens: 'NIKKOR Z 50mm f/1.8 S', focalLength: '50mm', aperture: 'f/2', shutterSpeed: '1/160s', iso: '640' },
@@ -44,7 +46,7 @@ export const sampleEntries = [
   {
     id: 'entry-concrete-light',
     title: '光的尺度',
-    images: ['/photos/concrete-light.webp'],
+    images: [photoUrl('concrete-light.webp')],
     takenAt: '2026-07-23T10:15',
     location: { name: '北京 · 美术馆', coords: null },
     equipment: { camera: 'Ricoh GR IIIx', lens: '26.1mm F2.8', focalLength: '40mm', aperture: 'f/5.6', shutterSpeed: '1/320s', iso: '200' },
@@ -83,7 +85,7 @@ export const sampleInspirations = cards.map(([id, category, task, style, difficu
 }))
 
 export const sampleReviews = [{
-  id: 'review-shanghai-rain', entryId: 'entry-shanghai-rain', imageUrl: '/photos/shanghai-rain.webp',
+  id: 'review-shanghai-rain', entryId: 'entry-shanghai-rain', imageUrl: photoUrl('shanghai-rain.webp'),
   dimensions: {
     composition: { score: 88, comment: '左侧暗部形成天然取景框，骑行者与远处地标建立了清晰的视觉关系。' },
     lighting: { score: 92, comment: '雨后反光扩展了高光层次，逆光让湿润空气拥有可见质感。' },
